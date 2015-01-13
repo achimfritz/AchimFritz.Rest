@@ -72,7 +72,7 @@ class RestController extends \TYPO3\Flow\Mvc\Controller\RestController {
 		// we like to have a 400 status
 		$this->response->setStatus(400);
 		if ($this->mediaType === 'application/json') {
-			$this->addErrorFlashMessage();
+			$this->addFlashMessage('FATAL', '', Message::SEVERITY_ERROR);
 		} else {
 			return parent::errorAction();
 		}
