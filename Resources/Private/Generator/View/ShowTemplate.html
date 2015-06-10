@@ -1,0 +1,42 @@
+{namespace k=TYPO3\Kickstart\ViewHelpers}<![CDATA[<f:layout name="Default" />
+
+<f:section name="Title">]]>Show {modelName -> k:inflect.humanizeCamelCase(lowercase: true)} <![CDATA[{]]>{modelName}<![CDATA[.name}]]><![CDATA[</f:section>]]>
+<![CDATA[<f:section name="Content">]]>
+	<table class="table table-striped">
+		<f:for each="{properties}" as="property" key="propertyName">
+		<tr>
+			<th>{propertyName -> k:inflect.humanizeCamelCase()}</th>
+			<f:if condition="{0: property.type} == {0: 'Doctrine\Common\Collections\Collection'}">
+				<f:then>
+					<td>{property.elementType} ... what to render? ...</td>	
+				</f:then>
+				<f:else>
+					<td><f:if condition="{0: property.type} == {0: 'DateTime'}"><f:then><![CDATA[{]]>{modelName}.{propertyName}<![CDATA[ -> f:format.date(format: 'd.m.Y')}]]></f:then><f:else><![CDATA[{]]>{modelName}.{propertyName}<![CDATA[}]]></f:else></f:if></td>
+				</f:else>
+			</f:if>
+		</tr>
+		</f:for>
+	</table>
+
+	<h3>edit {modelName}</h3>
+	<![CDATA[<f:form action="index" object="{]]>{modelName}<![CDATA[}]]>" objectName="{modelName}">
+		<f:form.hidden name="__method" value="PUT" />
+		<f:for each="{properties}" as="property" key="propertyName">
+			<div class="form-group">
+				<label class="control-label" for="{propertyName}">{propertyName -> k:inflect.humanizeCamelCase()}</label>
+					<f:if condition="{0: property.type} == {0: 'Doctrine\Common\Collections\Collection'}">
+						<f:then>
+							<p>{property.elementType} ... render select box? ...</p>
+						</f:then>
+						<f:else>
+							<f:if condition="{0: property.type} == {0: 'DateTime'}"><f:then><![CDATA[<f:form.textfield]]> type="datetime" value="<![CDATA[{]]>{modelName}.{propertyName}<![CDATA[ -> f:format.date(format: 'd.m.Y')}]]>" property="{propertyName}" class="datepicker form-control" id="{propertyName}" /></f:then><f:else><![CDATA[<f:form.textfield]]> property="{propertyName}" class="form-control" id="{propertyName}" /></f:else></f:if>
+						</f:else>
+					</f:if>
+			</div>
+		</f:for>
+			<div class="form-group">
+				<![CDATA[<f:link.action action="index" class="btn btn-default">Back</f:link.action>]]>
+				<![CDATA[<f:form.submit class="btn btn-default" value="Update" />
+			</div>
+	</f:form>]]>
+<![CDATA[</f:section>]]>

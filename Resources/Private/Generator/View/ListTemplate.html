@@ -1,0 +1,47 @@
+{namespace k=TYPO3\Kickstart\ViewHelpers}<![CDATA[<f:layout name="Default" />
+
+<f:section name="Title">]]>A list of {modelName -> k:inflect.pluralize() -> k:inflect.humanizeCamelCase(lowercase: true)}<![CDATA[</f:section>
+
+<f:section name="Content">]]>
+	<![CDATA[<f:if condition="{]]>{modelName -> k:inflect.pluralize()}<![CDATA[}">
+		<f:then>
+			<table class="table table-striped">
+				<f:for each="{]]>{modelName -> k:inflect.pluralize()}<![CDATA[}" as="]]>{modelName}<![CDATA[">
+					<tr>
+						<td><f:link.action action="index" arguments="{]]>{modelName}: {modelName}<![CDATA[}">{]]>{modelName}<![CDATA[.name}</f:link.action></td>
+						<td><f:form action="index" arguments="{]]>{modelName}: {modelName}<![CDATA[}">
+							<f:form.hidden name="__method" value="DELETE" />
+							<f:form.submit value="Delete" class="btn btn-danger btn-xs" />
+						</f:form></td>
+					</tr>
+				</f:for>
+			</table>
+		</f:then>
+		<f:else>
+			]]><div class="alert alert-info" role="alert">No {modelName -> k:inflect.pluralize() -> k:inflect.humanizeCamelCase(lowercase: true)}<![CDATA[ created yet.</div>
+		</f:else>
+	</f:if>
+	]]>
+	<h3>create new {modelName}</h3>
+	<![CDATA[<f:form action="index"]]> objectName="{modelName}">
+		<f:form.hidden name="__method" value="POST" />
+		<f:for each="{properties}" as="property" key="propertyName">
+			<div class="form-group">
+				<label class="control-label" for="{propertyName}">{propertyName -> k:inflect.humanizeCamelCase()}</label>
+					<f:if condition="{0: property.type} == {0: 'Doctrine\Common\Collections\Collection'}">
+						<f:then>
+							<p>Collection of {property.elementType} ... ? ...</p>
+						</f:then>
+						<f:else>
+							<f:if condition="{0: property.type} == {0: 'DateTime'}"><f:then><![CDATA[<f:form.textfield]]> type="datetime" value="<![CDATA[{f:format.date(date: 'now', format: 'd.m.Y')}]]>" property="{propertyName}" class="datepicker form-control" id="{propertyName}" /></f:then><f:else><![CDATA[<f:form.textfield]]> property="{propertyName}" class="form-control" id="{propertyName}" /></f:else></f:if>
+						</f:else>
+					</f:if>
+			</div>
+		</f:for>
+			<div class="form-group">
+				<![CDATA[<f:form.submit value="Create" class="btn btn-default"/>
+			</div>
+	</f:form>]]>
+
+<![CDATA[</f:section>]]>
+
