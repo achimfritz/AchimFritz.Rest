@@ -11,16 +11,16 @@ namespace AchimFritz\Rest\Command;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Command controller for the Kickstart generator
  *
  */
-class KickstartCommandController extends \TYPO3\Flow\Cli\CommandController {
+class KickstartCommandController extends \Neos\Flow\Cli\CommandController {
 
 	/**
-	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 * @var \Neos\Flow\Package\PackageManagerInterface
 	 * @Flow\Inject
 	 */
 	protected $packageManager;
@@ -58,7 +58,7 @@ class KickstartCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$generatedFiles = array();
 		$generatedModels = FALSE;
 
-		$controllerNames = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $controllerName);
+		$controllerNames = \Neos\Flow\Utility\Arrays::trimExplode(',', $controllerName);
 		foreach ($controllerNames as $currentControllerName) {
 			$modelClassName = str_replace('.', '\\', $packageKey) . '\Domain\Model\\' . $currentControllerName;
 			if (!class_exists($modelClassName)) {

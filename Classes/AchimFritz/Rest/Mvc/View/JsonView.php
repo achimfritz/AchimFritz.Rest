@@ -1,7 +1,7 @@
 <?php
 namespace AchimFritz\Rest\Mvc\View;
 
-class JsonView extends \TYPO3\Flow\Mvc\View\JsonView {
+class JsonView extends \Neos\Flow\Mvc\View\JsonView {
 
 	 /**
 	  * empty array instead of array('value')

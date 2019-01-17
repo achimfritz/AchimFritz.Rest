@@ -11,7 +11,7 @@ namespace AchimFritz\Rest\Service;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Service for the Kickstart generator

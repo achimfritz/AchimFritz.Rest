@@ -6,13 +6,13 @@ namespace AchimFritz\Rest\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Error\Message;
 
 /**
  * RestController 
  */
-class RestController extends \TYPO3\Flow\Mvc\Controller\RestController {
+class RestController extends \Neos\Flow\Mvc\Controller\RestController {
 
 	/**
 	 * Supported content types. Needed for HTTP content negotiation.
@@ -35,11 +35,11 @@ class RestController extends \TYPO3\Flow\Mvc\Controller\RestController {
 	 *
 	 * This method should be called by the concrete processRequest() method.
 	 *
-	 * @param \TYPO3\Flow\Mvc\RequestInterface $request
-	 * @param \TYPO3\Flow\Mvc\ResponseInterface $response
-	 * @throws \TYPO3\Flow\Mvc\Exception\UnsupportedRequestTypeException
+	 * @param \Neos\Flow\Mvc\RequestInterface $request
+	 * @param \Neos\Flow\Mvc\ResponseInterface $response
+	 * @throws \Neos\Flow\Mvc\Exception\UnsupportedRequestTypeException
 	 */
-	protected function initializeController(\TYPO3\Flow\Mvc\RequestInterface $request, \TYPO3\Flow\Mvc\ResponseInterface $response) {
+	protected function initializeController(\Neos\Flow\Mvc\RequestInterface $request, \Neos\Flow\Mvc\ResponseInterface $response) {
 		$this->parentInitializeController($request, $response);
 		// override request.format with NegotiatedMediaType aka HTTP-Request Content-Type and set Content-Type to response
 		$this->mediaType = $this->request->getHttpRequest()->getNegotiatedMediaType($this->supportedMediaTypes);
@@ -53,12 +53,12 @@ class RestController extends \TYPO3\Flow\Mvc\Controller\RestController {
 	}
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\RequestInterface $request
-	 * @param \TYPO3\Flow\Mvc\ResponseInterface $response
-	 * @throws \TYPO3\Flow\Mvc\Exception\UnsupportedRequestTypeException
+	 * @param \Neos\Flow\Mvc\RequestInterface $request
+	 * @param \Neos\Flow\Mvc\ResponseInterface $response
+	 * @throws \Neos\Flow\Mvc\Exception\UnsupportedRequestTypeException
 	 * @return void
 	 */
-	protected function parentInitializeController(\TYPO3\Flow\Mvc\RequestInterface $request, \TYPO3\Flow\Mvc\ResponseInterface $response) {
+	protected function parentInitializeController(\Neos\Flow\Mvc\RequestInterface $request, \Neos\Flow\Mvc\ResponseInterface $response) {
 		parent::initializeController($request, $response);
 	}
 
@@ -101,7 +101,7 @@ class RestController extends \TYPO3\Flow\Mvc\Controller\RestController {
 	 * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other"
 	 * @param string $format The format to use for the redirect URI
 	 * @return void
-	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
+	 * @throws \Neos\Flow\Mvc\Exception\StopActionException
 	 * @see forward()
 	 * @api
 	 */
