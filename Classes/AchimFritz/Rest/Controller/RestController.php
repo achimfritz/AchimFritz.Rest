@@ -7,7 +7,7 @@ namespace AchimFritz\Rest\Controller;
  *                                                                        */
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Error\Message;
+use Neos\Error\Messages\Message;
 
 /**
  * RestController 

@@ -58,7 +58,7 @@ class KickstartCommandController extends \Neos\Flow\Cli\CommandController {
 		$generatedFiles = array();
 		$generatedModels = FALSE;
 
-		$controllerNames = \Neos\Flow\Utility\Arrays::trimExplode(',', $controllerName);
+		$controllerNames = \Neos\Utility\Arrays::trimExplode(',', $controllerName);
 		foreach ($controllerNames as $currentControllerName) {
 			$modelClassName = str_replace('.', '\\', $packageKey) . '\Domain\Model\\' . $currentControllerName;
 			if (!class_exists($modelClassName)) {
