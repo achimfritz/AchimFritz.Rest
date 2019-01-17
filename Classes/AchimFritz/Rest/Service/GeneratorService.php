@@ -25,7 +25,7 @@ class GeneratorService extends \Neos\Kickstarter\Service\GeneratorService {
 	 * @param string $templatePathAndFilename
 	 * @param array $contextVariables
 	 * @return string
-	 * @throws \TYPO3\Fluid\Core\Exception
+	 * @throws \Neos\FluidAdaptor\Core\Exception
 	 */
 	protected function renderTemplate($templatePathAndFilename, array $contextVariables) {
 		$name = $templatePathAndFilename;
