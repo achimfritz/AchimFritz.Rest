@@ -2,7 +2,7 @@
 namespace AchimFritz\Rest\Service;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.Kickstart".       *
+ * This script belongs to the TYPO3 Flow package "Neos.Kickstart".       *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -17,7 +17,7 @@ use Neos\Flow\Annotations as Flow;
  * Service for the Kickstart generator
  *
  */
-class GeneratorService extends \TYPO3\Kickstart\Service\GeneratorService {
+class GeneratorService extends \Neos\Kickstart\Service\GeneratorService {
 
 	/**
 	 * Render the given template file with the given variables
@@ -29,10 +29,10 @@ class GeneratorService extends \TYPO3\Kickstart\Service\GeneratorService {
 	 */
 	protected function renderTemplate($templatePathAndFilename, array $contextVariables) {
 		$name = $templatePathAndFilename;
-		if (strpos($name, 'resource://TYPO3.Kickstart/Private/Generator/View') !== FALSE
-			|| $name === 'resource://TYPO3.Kickstart/Private/Generator/Controller/CrudControllerTemplate.php.tmpl'
+		if (strpos($name, 'resource://Neos.Kickstart/Private/Generator/View') !== FALSE
+			|| $name === 'resource://Neos.Kickstart/Private/Generator/Controller/CrudControllerTemplate.php.tmpl'
 		) {
-			$name = str_replace('TYPO3.Kickstart', 'AchimFritz.Rest', $name);
+			$name = str_replace('Neos.Kickstart', 'AchimFritz.Rest', $name);
 		}
 		return parent::renderTemplate($name, $contextVariables);
 	}
