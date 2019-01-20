@@ -8,6 +8,7 @@ namespace AchimFritz\Rest\Controller;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Error\Messages\Message;
+use Neos\Flow\Mvc\Controller\ControllerContext;
 
 /**
  * RestController 
@@ -51,6 +52,22 @@ class RestController extends \Neos\Flow\Mvc\Controller\RestController {
 			$this->response->setHeader('Content-Type', $this->mediaType . '; charset=UTF-8', TRUE);
 		}
 	}
+
+    /**
+     * Determines the action method and assures that the method exists.
+     *
+     * @return string The action method name
+     * @throws NoSuchActionException if the action specified in the request object does not exist (and if there's no default action either).
+     */
+    protected function resolveActionMethodName()
+    {
+    	// sets correct $this->request actionMethodName:
+        $actionMethodName = parent::resolveActionMethodName();
+        // replace controllerContext sets which was set ini initializeController callec before actionMethod was replaced
+        $this->controllerContext = new ControllerContext($this->request, $this->response, $this->arguments, $this->uriBuilder);
+        return $actionMethodName;
+    }
+
 
 	/**
 	 * @param \Neos\Flow\Mvc\RequestInterface $request
