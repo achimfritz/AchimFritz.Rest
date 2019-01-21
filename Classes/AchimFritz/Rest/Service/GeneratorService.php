@@ -17,46 +17,48 @@ use Neos\Flow\Annotations as Flow;
  * Service for the Kickstart generator
  *
  */
-class GeneratorService extends \Neos\Kickstarter\Service\GeneratorService {
+class GeneratorService extends \Neos\Kickstarter\Service\GeneratorService
+{
 
-	/**
-	 * Render the given template file with the given variables
-	 *
-	 * @param string $templatePathAndFilename
-	 * @param array $contextVariables
-	 * @return string
-	 * @throws \Neos\FluidAdaptor\Core\Exception
-	 */
-	protected function renderTemplate($templatePathAndFilename, array $contextVariables) {
-		$name = $templatePathAndFilename;
-		if (strpos($name, 'resource://Neos.Kickstarter/Private/Generator/View') !== FALSE
-			|| $name === 'resource://Neos.Kickstarter/Private/Generator/Controller/CrudControllerTemplate.php.tmpl'
-		) {
-			$name = str_replace('Neos.Kickstarter', 'AchimFritz.Rest', $name);
-		}
-		return parent::renderTemplate($name, $contextVariables);
-	}
+    /**
+     * Render the given template file with the given variables
+     *
+     * @param string $templatePathAndFilename
+     * @param array $contextVariables
+     * @return string
+     * @throws \Neos\FluidAdaptor\Core\Exception
+     */
+    protected function renderTemplate($templatePathAndFilename, array $contextVariables)
+    {
+        $name = $templatePathAndFilename;
+        if (strpos($name, 'resource://Neos.Kickstarter/Private/Generator/View') !== false
+            || $name === 'resource://Neos.Kickstarter/Private/Generator/Controller/CrudControllerTemplate.php.tmpl'
+        ) {
+            $name = str_replace('Neos.Kickstarter', 'AchimFritz.Rest', $name);
+        }
+        return parent::renderTemplate($name, $contextVariables);
+    }
 
-	/**
-	 * @param string $packageKey The package key of the controller's package
-	 * @param boolean $overwrite Overwrite any existing files?
-	 * @return array An array of generated filenames
-	 */
-	public function generateException($packageKey, $overwrite = FALSE) {
-		$templatePathAndFilename = 'resource://AchimFritz.Rest/Private/Generator/ExceptionTemplate.php.tmpl';
+    /**
+     * @param string $packageKey The package key of the controller's package
+     * @param boolean $overwrite Overwrite any existing files?
+     * @return array An array of generated filenames
+     */
+    public function generateException($packageKey, $overwrite = false)
+    {
+        $templatePathAndFilename = 'resource://AchimFritz.Rest/Private/Generator/ExceptionTemplate.php.tmpl';
 
-		$contextVariables = array();
-		$contextVariables['packageNamespace'] = str_replace('.', '\\', $packageKey);
+        $contextVariables = array();
+        $contextVariables['packageNamespace'] = str_replace('.', '\\', $packageKey);
 
-		$fileContent = $this->renderTemplate($templatePathAndFilename, $contextVariables);
+        $fileContent = $this->renderTemplate($templatePathAndFilename, $contextVariables);
 
-		$classPath = $this->packageManager->getPackage($packageKey)->getClassesNamespaceEntryPath();
-		$path = $classPath . 'Exception.php';
-		$targetPathAndFilename = $path;
+        $classPath = $this->packageManager->getPackage($packageKey)->getClassesNamespaceEntryPath();
+        $path = $classPath . 'Exception.php';
+        $targetPathAndFilename = $path;
 
-		$this->generateFile($targetPathAndFilename, $fileContent, $overwrite);
+        $this->generateFile($targetPathAndFilename, $fileContent, $overwrite);
 
-		return $this->generatedFiles;
-	}
-
+        return $this->generatedFiles;
+    }
 }
